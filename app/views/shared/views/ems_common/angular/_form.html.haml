@@ -252,17 +252,17 @@
                             "required"    => "",
                             "checkchange" => ""}
 
-      .form-group{"ng-class" => "{'has-error': angularForm.project_name.$invalid}", "ng-if" => "emsCommonModel.emstype == 'telefonica'"}
-        %label.col-md-2.control-label{"for" => "ems_project_name"}
-          = _('Project Name')
-        .col-md-4
-          %input.form-control{"type"        => "text",
-                            "id"          => "ems_project_name",
-                            "name"        => "project_name",
-                            "ng-model"    => "emsCommonModel.project_name",
-                            "maxlength"   => "#{ViewHelper::MAX_NAME_LEN}",
-                            "required"    => "",
-                            "checkchange" => ""}
+    .form-group{"ng-class" => "{'has-error': angularForm.project_name.$invalid}", "ng-if" => "emsCommonModel.emstype == 'telefonica'"}
+      %label.col-md-2.control-label{"for" => "ems_project_name"}
+        = _('Project Name')
+      .col-md-4
+        %input.form-control{"type"        => "text",
+                          "id"          => "ems_project_name",
+                          "name"        => "project_name",
+                          "ng-model"    => "emsCommonModel.project_name",
+                          "maxlength"   => "#{ViewHelper::MAX_NAME_LEN}",
+                          "required"    => "",
+                          "checkchange" => ""}
 
     .form-group{"ng-class" => "{'has-error': angularForm.zone.$invalid}"}
       %label.col-md-2.control-label{"for" => "ems_zone"}
