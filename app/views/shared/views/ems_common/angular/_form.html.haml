@@ -131,6 +131,16 @@
                      "id"                          => "ems_api_version",
                      "checkchange"                 => "",
                      "selectpicker-for-select-tag" => "")
+    .form-group{"ng-class" => "{'has-error': angularForm.api_version.$invalid}", "ng-if" => "emsCommonModel.emstype == 'telefonica'"}
+      %label.col-md-2.control-label{"for" => "ems_api_version"}
+        = _("API Version")
+      .col-md-8
+        = select_tag('api_version',
+                     options_for_select(@telefonica_api_versions),
+                     "ng-model"                    => "emsCommonModel.api_version",
+                     "id"                          => "ems_api_version",
+                     "checkchange"                 => "",
+                     "selectpicker-for-select-tag" => "")
 
     .form-group{"ng-class" => "{'has-error': angularForm.vmware_cloud_api_version.$invalid}", "ng-if" => "emsCommonModel.emstype == 'vmware_cloud'"}
       %label.col-md-2.control-label{"for" => "ems_api_version"}
@@ -166,6 +176,18 @@
                             "required"                => true,
                             "checkchange"             => ""}
 
+    .form-group{"ng-class" => "{'has-error': angularForm.api_version.$invalid}",
+                "ng-if"    => "emsCommonModel.emstype == 'telefonica'"}
+      %label.col-md-2.control-label{"for" => "ems_region_input"}
+        = _('Region')
+      .col-md-4
+        %input.form-control{"type"                    => "text",
+                            "id"                      => "ems_region_input",
+                            "name"                    => "provider_region",
+                            "ng-model"                => "emsCommonModel.provider_region",
+                            "required"                => true,
+                            "checkchange"             => ""}
+
     .form-group{"ng-class" => "{'has-error': angularForm.keystone_v3_domain_id.$invalid}", "ng-if" => "emsCommonModel.api_version == 'v3' && (emsCommonModel.emstype == 'openstack' || emsCommonModel.emstype == 'openstack_infra')"}
       %label.col-md-2.control-label{"for" => "ems_keystone_domain_id"}
         = _('Keystone V3 Domain ID')
@@ -177,6 +199,16 @@
                             "required"    => true,
                             "checkchange" => ""}
     .form-group{"ng-class" => "{'has-error': angularForm.keystone_v3_domain_id.$invalid}", "ng-if" => "emsCommonModel.api_version == 'v3' && (emsCommonModel.emstype == 'orange')"}
+      %label.col-md-2.control-label{"for" => "ems_keystone_domain_id"}
+        = _('Keystone V3 Domain ID')
+      .col-md-4
+        %input.form-control{"type"        => "text",
+                            "id"          => "ems_keystone_domain_id",
+                            "name"        => "keystone_v3_domain_id",
+                            "ng-model"    => "emsCommonModel.keystone_v3_domain_id",
+                            "required"    => true,
+                            "checkchange" => ""}
+    .form-group{"ng-class" => "{'has-error': angularForm.keystone_v3_domain_id.$invalid}", "ng-if" => "emsCommonModel.api_version == 'v3' && (emsCommonModel.emstype == 'telefonica')"}
       %label.col-md-2.control-label{"for" => "ems_keystone_domain_id"}
         = _('Keystone V3 Domain ID')
       .col-md-4
@@ -220,6 +252,18 @@
                             "required"    => "",
                             "checkchange" => ""}
 
+      .form-group{"ng-class" => "{'has-error': angularForm.project_name.$invalid}", "ng-if" => "emsCommonModel.emstype == 'telefonica'"}
+        %label.col-md-2.control-label{"for" => "ems_project_name"}
+          = _('Project Name')
+        .col-md-4
+          %input.form-control{"type"        => "text",
+                            "id"          => "ems_project_name",
+                            "name"        => "project_name",
+                            "ng-model"    => "emsCommonModel.project_name",
+                            "maxlength"   => "#{ViewHelper::MAX_NAME_LEN}",
+                            "required"    => "",
+                            "checkchange" => ""}
+
     .form-group{"ng-class" => "{'has-error': angularForm.zone.$invalid}"}
       %label.col-md-2.control-label{"for" => "ems_zone"}
         = _("Zone")
@@ -243,17 +287,6 @@
                        "required"                    => "",
                        "selectpicker-for-select-tag" => "")
     .form-group{"ng-if" => "emsCommonModel.emstype == 'openstack'"}
-      %label.control-label.col-md-2{"for" => "ems_tenant_mapping_enabled"}
-        = _('Tenant Mapping Enabled')
-      .col-md-8
-        %input{"bs-switch"   => "",
-               :data         => {:on_text => 'Yes', :off_text => 'No', :size => 'mini'},
-               "type"        => "checkbox",
-               "id"          => "ems_tenant_mapping_enabled",
-               "name"        => "tenant_mapping_enabled",
-               "checkchange" => "true",
-               "ng-model"    => "emsCommonModel.tenant_mapping_enabled"}
-    .form-group{"ng-if" => "emsCommonModel.emstype == 'orange'"}
       %label.control-label.col-md-2{"for" => "ems_tenant_mapping_enabled"}
         = _('Tenant Mapping Enabled')
       .col-md-8

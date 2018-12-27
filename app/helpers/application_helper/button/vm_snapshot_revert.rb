@@ -3,7 +3,7 @@ class ApplicationHelper::Button::VmSnapshotRevert < ApplicationHelper::Button::B
 
   def visible?
     # Click2Cloud: Added orange cloudmanager condition
-    return false if @record.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) || @record.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm)
+    return false if @record.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) || @record.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm) || @record.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Vm)
     super
   end
 

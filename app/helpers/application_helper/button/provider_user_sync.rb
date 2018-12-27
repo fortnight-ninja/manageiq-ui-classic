@@ -10,6 +10,6 @@ class ApplicationHelper::Button::ProviderUserSync < ApplicationHelper::Button::B
     # they do not have a current group. Therefore user sync is
     # a noop if tenant mapping is not enabled.
     # Click2Cloud: Added orange cloudmanager condition
-    (@record.class == ManageIQ::Providers::Openstack::CloudManager || @record.class == ManageIQ::Providers::Orange::CloudManager) && @record.tenant_mapping_enabled == true
+    (@record.class == ManageIQ::Providers::Openstack::CloudManager || @record.class == ManageIQ::Providers::Orange::CloudManager || @record.class == ManageIQ::Providers::Telefonica::CloudManager) && @record.tenant_mapping_enabled == true
   end
 end

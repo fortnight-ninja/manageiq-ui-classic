@@ -134,6 +134,8 @@ module ApplicationHelper
         plural ? _("Nodes") : _("Node")
       when :orange
         plural ? _("Nodes") : _("Node")
+      when :telefonica
+        plural ? _("Nodes") : _("Node")
       else
         plural ? _("Hosts / Nodes") : _("Host / Node")
       end
@@ -151,6 +153,8 @@ module ApplicationHelper
       when :openstack
         plural ? _("Deployment Roles") : _("Deployment Role")
       when :orange
+        plural ? _("Deployment Roles") : _("Deployment Role")
+      when :telefonica
         plural ? _("Deployment Roles") : _("Deployment Role")
       else
         plural ? _("Clusters / Deployment Roles") : _("Cluster / Deployment Role")

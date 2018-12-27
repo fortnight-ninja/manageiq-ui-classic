@@ -10,6 +10,8 @@ module Mixins
     # Click2Cloud: Added orange parmas and amqp params
     ORANGE_PARAMS = %i(name provider_region project_name api_version default_security_protocol keystone_v3_domain_id default_hostname default_api_port project_name default_userid event_stream_selection).freeze
     ORANGE_AMQP_PARAMS = %i(name provider_region api_version amqp_security_protocol keystone_v3_domain_id amqp_hostname amqp_api_port project_name amqp_userid event_stream_selection).freeze
+    TELEFONICA_PARAMS = %i(name provider_region project_name api_version default_security_protocol keystone_v3_domain_id default_hostname default_api_port project_name default_userid event_stream_selection).freeze
+    TELEFONICA_AMQP_PARAMS = %i(name provider_region api_version amqp_security_protocol keystone_v3_domain_id amqp_hostname amqp_api_port project_name amqp_userid event_stream_selection).freeze
 
     included do
       include Mixins::GenericFormMixin
@@ -203,6 +205,13 @@ module Mixins
           [password, params.to_hash.symbolize_keys.slice(*ORANGE_PARAMS)]
         when 'amqp'
           [MiqPassword.encrypt(params[:amqp_password]), params.to_hash.symbolize_keys.slice(*ORANGE_AMQP_PARAMS)]
+        end
+      when 'ManageIQ::Providers::Telefonica::CloudManager'
+        case params[:cred_type]
+        when 'default'
+          [password, params.to_hash.symbolize_keys.slice(*TELEFONICA_PARAMS)]
+        when 'amqp'
+          [MiqPassword.encrypt(params[:amqp_password]), params.to_hash.symbolize_keys.slice(*TELEFONICA_AMQP_PARAMS)]
         end
       end
     end
@@ -602,7 +611,17 @@ module Mixins
         end
       end
 
-      if ems.kind_of?(ManageIQ::Providers::Openstack::CloudManager) || ems.kind_of?(ManageIQ::Providers::Orange::CloudManager) || ems.kind_of?(ManageIQ::Providers::Openstack::InfraManager) || ems.kind_of?(ManageIQ::Providers::Redhat::InfraManager)
+      if ems.kind_of?(ManageIQ::Providers::Telefonica::CloudManager)
+        default_endpoint = {:role => :default, :hostname => hostname, :port => port, :security_protocol => ems.security_protocol}
+        ems.keystone_v3_domain_id = params[:keystone_v3_domain_id]
+        if params[:event_stream_selection] == "amqp"
+          amqp_endpoint = {:role => :amqp, :hostname => amqp_hostname, :port => amqp_port, :security_protocol => amqp_security_protocol}
+        else
+          ceilometer_endpoint = {:role => :ceilometer}
+        end
+      end
+
+      if ems.kind_of?(ManageIQ::Providers::Openstack::CloudManager) || ems.kind_of?(ManageIQ::Providers::Orange::CloudManager) || ems.kind_of?(ManageIQ::Providers::Telefonica::CloudManager) || ems.kind_of?(ManageIQ::Providers::Openstack::InfraManager) || ems.kind_of?(ManageIQ::Providers::Redhat::InfraManager)
         ssh_keypair_endpoint = {:role => :ssh_keypair}
       end
 
@@ -796,6 +815,7 @@ module Mixins
       if (ems.kind_of?(ManageIQ::Providers::Openstack::InfraManager) ||
         ems.kind_of?(ManageIQ::Providers::Openstack::CloudManager) ||
         ems.kind_of?(ManageIQ::Providers::Orange::CloudManager) ||
+        ems.kind_of?(ManageIQ::Providers::Telefonica::CloudManager) ||
         ems.kind_of?(ManageIQ::Providers::Redhat::InfraManager)) &&
         ems.supports_authentication?(:ssh_keypair) && params[:ssh_keypair_userid]
         ssh_keypair_password = params[:ssh_keypair_password] ? params[:ssh_keypair_password].gsub(/\r\n/, "\n") : ems.authentication_key(:ssh_keypair)
@@ -848,7 +868,7 @@ module Mixins
     def retrieve_event_stream_selection
       return 'amqp' if @ems.connection_configurations.amqp&.endpoint&.hostname&.present?
       return 'ceilometer' if @ems.connection_configurations.ceilometer&.endpoint&.hostname&.present?
-      @ems.kind_of?(ManageIQ::Providers::Openstack::CloudManager) || @ems.kind_of?(ManageIQ::Providers::Orange::CloudManager) || @ems.kind_of?(ManageIQ::Providers::Openstack::InfraManager) ? 'ceilometer' : 'none'
+      @ems.kind_of?(ManageIQ::Providers::Openstack::CloudManager) || @ems.kind_of?(ManageIQ::Providers::Orange::CloudManager) || @ems.kind_of?(ManageIQ::Providers::Telefonica::CloudManager) || @ems.kind_of?(ManageIQ::Providers::Openstack::InfraManager) ? 'ceilometer' : 'none'
     end
 
     def construct_edit_for_audit(ems)
