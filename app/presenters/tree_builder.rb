@@ -563,6 +563,7 @@ class TreeBuilder
     "h"    => "Host",
     "hot"  => "ManageIQ::Providers::Openstack::CloudManager::OrchestrationTemplate",
     "thot"  => "ManageIQ::Providers::Orange::CloudManager::OrchestrationTemplate",
+    "thot"  => "ManageIQ::Providers::Telefonica::CloudManager::OrchestrationTemplate",
     "isd"  => "IsoDatastore",
     "isi"  => "IsoImage",
     "l"    => "Lan",

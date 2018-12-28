@@ -50,10 +50,12 @@ class CatalogController < ApplicationController
   ORCHESTRATION_TEMPLATES_NODES = {
     'ManageIQ::Providers::Amazon::CloudManager::OrchestrationTemplate'    => "otcfn",
     'ManageIQ::Providers::Openstack::CloudManager::OrchestrationTemplate' => "othot",
-    'ManageIQ::Providers::Orange::CloudManager::OrchestrationTemplate' => "otthot",
+    'ManageIQ::Providers::Orange::CloudManager::OrchestrationTemplate'    => "otthot",
+    'ManageIQ::Providers::Telefonica::CloudManager::OrchestrationTemplate'=> "otthot",
     'ManageIQ::Providers::Azure::CloudManager::OrchestrationTemplate'     => "otazu",
     'ManageIQ::Providers::Openstack::CloudManager::VnfdTemplate'          => "otvnf",
-    'ManageIQ::Providers::Orange::CloudManager::VnfdTemplate'          => "ottvnf",
+    'ManageIQ::Providers::Orange::CloudManager::VnfdTemplate'             => "ottvnf",
+    'ManageIQ::Providers::Telefonica::CloudManager::VnfdTemplate'         => "ottvnf",
     'ManageIQ::Providers::Vmware::CloudManager::OrchestrationTemplate'    => "otvap"
   }.freeze
 
@@ -1139,10 +1141,12 @@ class CatalogController < ApplicationController
     template_types = %w(
       ManageIQ::Providers::Openstack::CloudManager::OrchestrationTemplate
       ManageIQ::Providers::Orange::CloudManager::OrchestrationTemplate
+      ManageIQ::Providers::Telefonica::CloudManager::OrchestrationTemplate
       ManageIQ::Providers::Amazon::CloudManager::OrchestrationTemplate
       ManageIQ::Providers::Azure::CloudManager::OrchestrationTemplate
       ManageIQ::Providers::Openstack::CloudManager::VnfdTemplate
       ManageIQ::Providers::Orange::CloudManager::VnfdTemplate
+      ManageIQ::Providers::Telefonica::CloudManager::VnfdTemplate
       ManageIQ::Providers::Vmware::CloudManager::OrchestrationTemplate
     )
     if !template_types.include?(@edit[:new][:type])
