@@ -179,14 +179,13 @@ describe ApplicationController do
     end
 
     let(:telefonica_ems) { FactoryBot.create(:ems_telefonica) }
-    let(:orange_ems) { FactoryBot.create(:ems_orange) }
 
     it "sets provisioning data and skips pre provisioning dialog" do
       template = FactoryBot.create(:template_telefonica,
                                     :name                  => "template 1",
                                     :vendor                => "vmware",
                                     :location              => "template1.vmtx",
-                                    :ext_management_system => ems)
+                                    :ext_management_system => telefonica_ems)
       controller.instance_variable_set(:@_params,
                                        :pressed         => "image_miq_request_new",
                                        :miq_grid_checks => template.id.to_s)
@@ -201,12 +200,14 @@ describe ApplicationController do
       expect(assigns(:org_controller)).to eq("vm")
     end
 
+    let(:orange_ems) { FactoryBot.create(:ems_orange) }
+
     it "sets provisioning data and skips pre provisioning dialog" do
       template = FactoryBot.create(:template_orange,
                                    :name                  => "template 1",
                                    :vendor                => "vmware",
                                    :location              => "template1.vmtx",
-                                   :ext_management_system => ems)
+                                   :ext_management_system => orange_ems)
       controller.instance_variable_set(:@_params,
                                        :pressed         => "image_miq_request_new",
                                        :miq_grid_checks => template.id.to_s)
