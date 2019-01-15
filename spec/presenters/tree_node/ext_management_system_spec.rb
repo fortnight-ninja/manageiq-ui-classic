@@ -39,6 +39,8 @@ describe TreeNode::ExtManagementSystem do
     :ems_google_network               => {},
     :ems_nuage_network                => {},
     :ems_openstack_network            => { :suppress_callback => true },
+    :ems_telefonica_network            => { :suppress_callback => true },
+    :ems_orange_network            => { :suppress_callback => true },
     :ems_vmware_cloud_network         => {},
     :ems_cinder                       => {},
     :ems_swift                        => {},

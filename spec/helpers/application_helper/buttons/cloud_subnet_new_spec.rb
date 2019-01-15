@@ -9,6 +9,27 @@ describe ApplicationHelper::Button::CloudSubnetNew do
       expect(button.disabled?).to be false
     end
 
+    it "when only Telefonica provider supports subnet create then the button is not disabled" do
+      view_context = setup_view_context_with_sandbox({})
+      FactoryBot.create(:ems_telefonica)
+      button = described_class.new(view_context, {}, {}, {})
+      expect(button.disabled?).to be false
+    end
+
+    it "when only Orange provider supports subnet create then the button is not disabled" do
+      view_context = setup_view_context_with_sandbox({})
+      FactoryBot.create(:ems_orange)
+      button = described_class.new(view_context, {}, {}, {})
+      expect(button.disabled?).to be false
+    end
+
+    it "when at least one provider supports subnet create then the button is not disabled" do
+      view_context = setup_view_context_with_sandbox({})
+      FactoryBot.create(:ems_openstack)
+      button = described_class.new(view_context, {}, {}, {})
+      expect(button.disabled?).to be false
+    end
+
     it "when no provider supports subnet create then the button is disabled" do
       view_context = setup_view_context_with_sandbox({})
       button = described_class.new(view_context, {}, {}, {})

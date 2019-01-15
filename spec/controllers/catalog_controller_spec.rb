@@ -683,6 +683,8 @@ describe CatalogController do
 
         FactoryBot.create(:orchestration_template_amazon_in_json)
         FactoryBot.create(:orchestration_template_openstack_in_yaml)
+        FactoryBot.create(:orchestration_template_telefonica_in_yaml)
+        FactoryBot.create(:orchestration_template_orange_in_yaml)
         FactoryBot.create(:orchestration_template_azure_in_json)
       end
 

@@ -6,6 +6,8 @@ describe TreeNode::AvailabilityZone do
     availability_zone_azure
     availability_zone_google
     availability_zone_openstack
+    availability_zone_telefonica
+    availability_zone_orange
     availability_zone_openstack_null
     availability_zone_vmware
   ).each do |factory|
