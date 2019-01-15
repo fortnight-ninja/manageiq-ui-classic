@@ -1,4 +1,4 @@
-# ManageIQ::UI::Classic
+# ManageIQ::UI::Classic1
 
 [![Gem Version](https://badge.fury.io/rb/manageiq-ui-classic.svg)](http://badge.fury.io/rb/manageiq-ui-classic)
 [![Build Status](https://travis-ci.org/ManageIQ/manageiq-ui-classic.svg?branch=master)](https://travis-ci.org/ManageIQ/manageiq-ui-classic)
