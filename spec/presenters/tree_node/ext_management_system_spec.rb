@@ -25,7 +25,7 @@ describe TreeNode::ExtManagementSystem do
     :ems_azure                        => { :tip_prefix => 'Ems Cloud' },
     :ems_google                       => { :tip_prefix => 'Ems Cloud' },
     :ems_openstack                    => { :tip_prefix => 'Ems Cloud' },
-    :ems_telefonica                   => { :tip_prefix => 'Ems Cloud' },
+    #:ems_telefonica                   => { :tip_prefix => 'Ems Cloud' },
     :ems_orange                       => { :tip_prefix => 'Ems Cloud' },
     :ems_vmware_cloud                 => { :tip_prefix => 'Ems Cloud' },
     # Other remaining providers
@@ -39,7 +39,7 @@ describe TreeNode::ExtManagementSystem do
     :ems_google_network               => {},
     :ems_nuage_network                => {},
     :ems_openstack_network            => { :suppress_callback => true },
-    :ems_telefonica_network            => { :suppress_callback => true },
+    #:ems_telefonica_network            => { :suppress_callback => true },
     :ems_orange_network            => { :suppress_callback => true },
     :ems_vmware_cloud_network         => {},
     :ems_cinder                       => {},
